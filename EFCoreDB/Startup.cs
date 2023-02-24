@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EFCoreDB.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace EFCoreDB
 {
@@ -13,9 +15,12 @@ namespace EFCoreDB
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+            string myDbContextConnectionString = _configuration.GetConnectionString("MyDBContext");
+
             // Register DbContext
             services.AddDbContext<MyDBContext>(options =>
-                options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(_configuration.GetConnectionString(myDbContextConnectionString)));
 
             // Other services can be registered here
         }
