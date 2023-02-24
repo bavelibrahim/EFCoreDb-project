@@ -14,7 +14,7 @@ namespace EFCoreDB.Services
 
         public async Task<List<Movie>> GetAllMoviesAsync()
         {
-            return await _context.movies.ToListAsync();
+            return await _context.Movies.ToListAsync();
         }
 
         // Other CRUD operations for Movie entity can be added here
