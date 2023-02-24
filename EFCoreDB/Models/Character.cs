@@ -7,15 +7,19 @@ public class Character
     public int CharacterId { get; set; }
 
     [Required]
+    [StringLength(50)]
     public string Name { get; set; }
 
     [Required]
+    [StringLength(50)]
     public string Alias { get; set; }
 
     [Required]
+    [StringLength(50)]
     public string Gender { get; set; }
 
     [Required]
+    [StringLength(200)]
     public string Picture { get; set; }
 
     public virtual ICollection<Movie>? Movies { get; set; }

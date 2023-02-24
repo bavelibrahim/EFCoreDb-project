@@ -9,9 +9,17 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = EFCoreDB
 build_property.RootNamespace = EFCoreDB
+<<<<<<< HEAD
 build_property.ProjectDir = C:\Noroff\CSharp\Assignments\Assignment03\EFCoreDb-project\EFCoreDB\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = C:\Noroff\CSharp\Assignments\Assignment03\EFCoreDb-project\EFCoreDB
+=======
+build_property.ProjectDir = C:\Users\JBraat\Desktop\repos\Dotnet\Assignment3\EFCoreDB\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\JBraat\Desktop\repos\Dotnet\Assignment3\EFCoreDB
+>>>>>>> 81f0ec1c4c15d9b739067c22d5dc385ff472b389
 build_property._RazorSourceGeneratorDebug = 
