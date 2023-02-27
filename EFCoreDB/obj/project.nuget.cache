@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "bCMIadtuGh0RsczPw2n47bIh0oqFO2B05x0m1UHG1Z2B6LHr7OJorvElFDZy70B5s4gUd0b6awMJb8qSlCs0Ow==",
+  "dgSpecHash": "+MU8D5nxip7H2Hc98Px6+5bJc2nnvMykLERvK0O/UdAS+RYqMkdOaSHiO5wesa/PwB3C2JTQIvGetzMpBuJS/A==",
   "success": true,
   "projectFilePath": "C:\\Noroff\\CSharp\\Assignments\\Assignment03\\EFCoreDb-project\\EFCoreDB\\EFCoreDB.csproj",
   "expectedPackageFiles": [
@@ -74,7 +74,7 @@
     "C:\\Users\\PShwan\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\PShwan\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\PShwan\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
-    "C:\\Users\\PShwan\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\PShwan\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512",
     "C:\\Users\\PShwan\\.nuget\\packages\\nuget.common\\6.3.1\\nuget.common.6.3.1.nupkg.sha512",
     "C:\\Users\\PShwan\\.nuget\\packages\\nuget.configuration\\6.3.1\\nuget.configuration.6.3.1.nupkg.sha512",
     "C:\\Users\\PShwan\\.nuget\\packages\\nuget.dependencyresolver.core\\6.3.1\\nuget.dependencyresolver.core.6.3.1.nupkg.sha512",

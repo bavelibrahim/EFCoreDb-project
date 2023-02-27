@@ -7,7 +7,7 @@ public class Franchise
     [Key]
     public int FranchiseId { get; set; }
 
-    // The Name of the franchise.
+    // The ConnectionString of the franchise.
     [Required]
     [StringLength(50)]
     public string Name { get; set; }
