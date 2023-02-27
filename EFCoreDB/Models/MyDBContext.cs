@@ -12,7 +12,7 @@ namespace EFCoreDB.Models
         {
 
         }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Movie>()

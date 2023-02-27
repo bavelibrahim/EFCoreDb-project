@@ -19,15 +19,12 @@ public class Movie
 
     // The year the movie was released.
     [Required]
-    [Range(1900, DateTime.Now.Year)]
+    [Range(1900, 2023)]
     public string ReleaseYear { get; set; }
 
     // Director of the movie.
     [Required]
-<<<<<<< HEAD:EFCoreDB/Models/Movie.cs
-=======
     [StringLength(50)]
->>>>>>> 81f0ec1c4c15d9b739067c22d5dc385ff472b389:EFCoreDB/Model/Movie.cs
     public string Director { get; set; }
 
     // The URL of the picture for the movie.
@@ -40,16 +37,9 @@ public class Movie
     [StringLength(200)]
     public string Trailer { get; set; }
 
-<<<<<<< HEAD:EFCoreDB/Models/Movie.cs
     // Navigation properties to be able to navigate to Franchise (Example on Modelbuilder in MyDBContext Class
     public int FranchiseId { get; set; }
     public virtual Franchise Franchise { get; set; }
-
     public virtual ICollection<Character>? Characters { get; set; } = new List<Character>();
 
-=======
-    // Collections for movies and franchises.
-    public virtual ICollection<Movie>? Movies { get; set; }
-    public virtual ICollection<Franchise>? Franchies { get; set; }
->>>>>>> 81f0ec1c4c15d9b739067c22d5dc385ff472b389:EFCoreDB/Model/Movie.cs
 }
