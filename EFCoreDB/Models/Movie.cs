@@ -30,12 +30,12 @@ public class Movie
     // The URL of the picture for the movie.
     [Required]
     [StringLength(200)]
-    public string Picture { get; set; }
+    public string PictureUrl { get; set; }
 
     // The URL of the trailer for the movie.
     [Required]
     [StringLength(200)]
-    public string Trailer { get; set; }
+    public string TrailerUrl { get; set; }
 
     // Navigation properties to be able to navigate to Franchise (Example on Modelbuilder in MyDBContext Class
     public int FranchiseId { get; set; }

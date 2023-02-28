@@ -1,11 +1,13 @@
 ﻿using EFCoreDB.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Builder;
 
 namespace EFCoreDB
 {
     public class Startup
     {
+        private const string ConnectionString = "MyDBContext";
         private readonly IConfiguration _configuration;
 
         public Startup(IConfiguration configuration)
@@ -15,15 +17,14 @@ namespace EFCoreDB
 
         public void ConfigureServices(IServiceCollection services)
         {
+            string myDbContextConnectionString = ConnectionString;
 
-            string myDbContextConnectionString = _configuration.GetConnectionString("MyDBContext");
-
-            // Register DbContext
             services.AddDbContext<MyDBContext>(options =>
-                options.UseSqlServer(_configuration.GetConnectionString(myDbContextConnectionString)));
+                options.UseSqlServer(myDbContextConnectionString));
 
             // Other services can be registered here
         }
+
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
