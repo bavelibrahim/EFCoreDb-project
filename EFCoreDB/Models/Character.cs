@@ -20,7 +20,7 @@ public class Character
 
     [Required]
     [StringLength(200)]
-    public string Picture { get; set; }
-
+    public string PictureUrl { get; set; }
+    public virtual int MovieId { get; set; }
     public virtual ICollection<Movie>? Movies { get; set; }
 }

@@ -18,7 +18,7 @@ namespace EFCoreDB
             // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddDbContext<MyDBContext>(
-            opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("default")));
+            opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("MyDBContext")));
             builder.Services.AddScoped<MovieService>();
 
             var app = builder.Build();
