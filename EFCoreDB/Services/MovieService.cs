@@ -1,6 +1,6 @@
 ﻿namespace EFCoreDB.Services
 {
-    public class MovieService
+    public class MovieService : IMovieService
     {
     }
 }

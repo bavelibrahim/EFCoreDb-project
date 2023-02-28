@@ -1,6 +1,6 @@
 ﻿namespace EFCoreDB.Services
 {
-    public class FranchiseService
+    public class FranchiseService : IFranchiseService
     {
     }
 }

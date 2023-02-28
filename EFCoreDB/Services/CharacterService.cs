@@ -1,6 +1,6 @@
 ﻿namespace EFCoreDB.Services
 {
-    public class CharacterService
+    public class CharacterService : ICharacterService
     {
     }
 }
