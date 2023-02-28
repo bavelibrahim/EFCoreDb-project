@@ -2,5 +2,6 @@
 {
     public interface ICharacterService
     {
+        // Defining methods
     }
 }

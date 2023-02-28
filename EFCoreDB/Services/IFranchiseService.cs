@@ -2,5 +2,6 @@
 {
     public interface IFranchiseService
     {
+        // Defining methods
     }
 }
