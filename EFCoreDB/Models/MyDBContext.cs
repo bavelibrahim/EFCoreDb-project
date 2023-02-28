@@ -14,8 +14,14 @@ namespace EFCoreDB.Models
 
         }
 
+        /// <summary>
+        /// OnModelCreating creates the connection and creates seeded dummy data for the database.
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            // This is where the connections are created.
             modelBuilder.Entity<Movie>()
                 .HasMany(m => m.Characters)
                 .WithMany(c => c.Movies)
@@ -27,7 +33,7 @@ namespace EFCoreDB.Models
                 .HasForeignKey(m => m.FranchiseId);
 
 
-
+            // Seeding the dummy data 
             modelBuilder.Entity<Franchise>().HasData(
             new Franchise { FranchiseId = 1, Name = "Marvel Cinematic Universe", Description = "A series of superhero films produced by Marvel Studios" },
             new Franchise { FranchiseId = 2, Name = "Star Wars", Description = "An epic space-opera media franchise" },
@@ -42,8 +48,8 @@ namespace EFCoreDB.Models
 
             modelBuilder.Entity<Character>().HasData(
                 new Character { CharacterId = 1, Name = "Iron Man (Tony Stark)", Alias = "Iron Man", Gender = "Male", PictureUrl = "https://www.imdb.com/HeDiedInVain", MovieId = 1 },
-                new Character { CharacterId = 2, Name = "Luke Skywalker", Alias = null, Gender = "Male", PictureUrl = "https://www.imdb.com/title/IamNotYourDaddy", MovieId = 2 },
-                new Character { CharacterId = 3, Name = "Harry Potter", Alias = null, Gender = "Male", PictureUrl = "https://www.imdb.com/title/itsWingardiumLeviOsaNotLeviOsa", MovieId = 3 }
+                new Character { CharacterId = 2, Name = "Luke Skywalker", Alias = "The Fatherless One", Gender = "Male", PictureUrl = "https://www.imdb.com/title/IamNotYourDaddy", MovieId = 2 },
+                new Character { CharacterId = 3, Name = "Harry Potter", Alias = "The Chosen One", Gender = "Male", PictureUrl = "https://www.imdb.com/title/itsWingardiumLeviOsaNotLeviOsa", MovieId = 3 }
             );
         }
     }

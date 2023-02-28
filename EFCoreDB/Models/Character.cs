@@ -21,6 +21,8 @@ public class Character
     [Required]
     [StringLength(200)]
     public string PictureUrl { get; set; }
+
+    //Navigational properties between Character and Movies
     public virtual int MovieId { get; set; }
     public virtual ICollection<Movie>? Movies { get; set; }
 }
