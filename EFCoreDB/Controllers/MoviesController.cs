@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EFCoreDB.Models;
+using AutoMapper;
+using System.Net;
+using EFCoreDB.Models.DTOs.Characters;
+using EFCoreDB.Models.DTOs.Franchises;
 
 namespace EFCoreDB.Controllers
 {
@@ -14,37 +18,67 @@ namespace EFCoreDB.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly MyDBContext _context;
+        private readonly IMapper _mapper;
 
-        public MoviesController(MyDBContext context)
+        public MoviesController(MyDBContext context, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
         }
 
-        // GET: api/Movies
+        /// <summary>
+        /// Gets all the movies in the database with their related data represented as Ids.
+        /// </summary>
+        /// <returns>List of MovieDto</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
+        public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovies()
         {
-            return await _context.Movies.ToListAsync();
+            return Ok(
+                _mapper.Map<List<MovieDto>>(
+                    await /* _movieService */.GetAllAsync())
+                );
+
         }
 
-        // GET: api/Movies/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Movie>> GetMovie(int id)
-        {
-            var movie = await _context.Movies.FindAsync(id);
+        /// <summary>
+        /// Gets a single movie with the specified Id and maps to MovieDto
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Single MovieDto</returns>
 
-            if (movie == null)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<MovieDto>> GetMovie(int id)
+        {
+            try
             {
-                return NotFound();
+                return Ok(_mapper.Map<MovieDto>(
+                        await /*_movieService*/.GetByIdAsync(id))
+                    );
+            }
+            catch (/*EntityNotFoundException*/ ex)
+            {
+           
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
             }
 
-            return movie;
         }
 
-        // PUT: api/Movies/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Updates an existing movie. Just the values for the movie entity. 
+        /// The related data can be updated in separate endpoints.
+        /// Returns a failed state if the Ids dont match or the movie does not exist.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="movie"></param>
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMovie(int id, Movie movie)
+        public async Task<IActionResult> PutMovieAsync(int id, MovieUpdateDto movie)
         {
             if (id != movie.MovieId)
             {
@@ -55,53 +89,150 @@ namespace EFCoreDB.Controllers
 
             try
             {
-                await _context.SaveChangesAsync();
+                await /*_professorService*/.UpdateAsync(
+                      _mapper.Map<Movie>(movie)
+                  );
+                return NoContent();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (/*EntityNotFoundException*/ ex)
             {
-                if (!MovieExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
+
             }
-
-            return NoContent();
         }
-
-        // POST: api/Movies
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// Adds a new movie to the database.
+        /// </summary>
+        /// <param name="movieDto"></param>
         [HttpPost]
-        public async Task<ActionResult<Movie>> PostMovie(Movie movie)
+        public async Task<ActionResult<MovieDto>> PostMovieAsync(MovieDto movieDto)
         {
-            _context.Movies.Add(movie);
-            await _context.SaveChangesAsync();
-
+            // Mapping done separately to use the object in created at action
+            Movie movie = _mapper.Map<Movie>(movieDto);
+            await /*_movieService*/.AddAsync(movie);
             return CreatedAtAction("GetMovie", new { id = movie.MovieId }, movie);
+
         }
 
-        // DELETE: api/Movies/5
+        /// <summary>
+        /// Deletes a movie by its Id.
+        /// Returns a failed state if the movie doesnt exist with the specified Id.
+        /// </summary>
+        /// <param name="id"></param>
+
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMovie(int id)
+        public async Task<IActionResult> DeleteMovieAsync(int id)
         {
-            var movie = await _context.Movies.FindAsync(id);
-            if (movie == null)
+            try
             {
-                return NotFound();
+                await /*_movieService*/.DeleteByIdAsync(id);
+                return NoContent();
+            }
+            catch (/*EntityNotFoundException*/ ex)
+            {
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
             }
 
-            _context.Movies.Remove(movie);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
-
-        private bool MovieExists(int id)
+        /// <summary>
+        /// Gets all the characters for a Movie.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>List of Characters in summary format</returns>
+        [HttpGet("{id}/characters")]
+        public async Task<ActionResult<IEnumerable<CharacterSummaryDto>>> GetCharactersForMovieAsync(int id)
         {
-            return _context.Movies.Any(e => e.MovieId == id);
+            try
+            {
+                return Ok(
+                        _mapper.Map<List<CharacterSummaryDto>>(
+                            await /*_movieService*/.GetCharactersAsync(id)
+                        )
+                    );
+            }
+            catch (/*EntityNotFoundException*/ ex)
+            {
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
+            }
         }
+
+        /// <summary>
+        /// Gets the franchise for a Movie.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>List of Franchise in summary format</returns>
+        [HttpGet("{id}/franchise")]
+        public async Task<ActionResult<IEnumerable<FranchiseSummaryDto>>> GetFranchiseForMovieAsync(int id)
+        {
+            try
+            {
+                return Ok(
+                        _mapper.Map<List<FranchiseSummaryDto>>(
+                            await /*_movieService*/.GetFranchiseAsync(id)
+                        )
+                    );
+            }
+            catch (/*EntityNotFoundException*/ ex)
+            {
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
+            }
+        }
+
+        /// <summary>
+        /// Updates the characters a movie has. 
+        /// Currently only returns an error state if the movie doesnt exist, 
+        /// but there are provisions to add if a movie doesnt exist as well. 
+        /// This is to make error handling more extendable.
+        /// </summary>
+        /// <param name="characterIds"></param>
+        /// <param name="id"></param>
+        /// <returns>List of students in summary format</returns>
+        [HttpPut("{id}/characters")]
+        public async Task<IActionResult> UpdateCharactersForProfessorAsync(int[] studentIds, int id)
+        {
+            try
+            {
+                await _professorService.UpdateStudentsAsync(studentIds, id);
+                return NoContent();
+            }
+            catch (EntityNotFoundException ex)
+            {
+                // Formatting an error code for the exception messages.
+                // Using the built in Problem Details.
+                return NotFound(
+                    new ProblemDetails()
+                    {
+                        Detail = ex.Message,
+                        Status = ((int)HttpStatusCode.NotFound)
+                    }
+                    );
+            }
+        }
+
+
     }
 }
