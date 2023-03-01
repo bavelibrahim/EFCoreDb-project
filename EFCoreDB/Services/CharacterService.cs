@@ -80,11 +80,30 @@ namespace EFCoreDB.Services
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<Character> GetByIdAsync(int id)
+        public async Task<ICollection<Movie>> GetMoviesByCharacterId(int id)
+        {
+            var character = await GetCharacterById(id);
+
+            // Returns the movies of the character
+            return character.Movies.Select(m => new Movie
+            {
+                MovieId = m.MovieId,
+                Title = m.Title,
+                // can add further properties if needed
+            }).ToList();
+        }
+
+        /// <summary>
+        /// Obtains character by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<Character> GetCharacterById(int id)
         {
             if (!await CharacterExists(id))
             {
-                _logger.LogError($"Character not found with Id: {id}");
+                _logger.LogError($"Movie in CharacterId: {id}, does not exist");
                 // Throw new exception here
             }
 
@@ -122,6 +141,11 @@ namespace EFCoreDB.Services
         private async Task<bool> CharacterExists(int id)
         {
             return await _dbContext.Characters.AnyAsync(e => e.CharacterId == id);
+        }
+
+        public Task<Character> GetMovieById(int id)
+        {
+            throw new NotImplementedException();
         }
 
 

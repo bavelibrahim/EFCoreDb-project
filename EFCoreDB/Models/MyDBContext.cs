@@ -5,11 +5,21 @@ namespace EFCoreDB.Models
 {
     public class MyDBContext : DbContext
     {
+        StringHelper stringHelper;
         public DbSet<Movie> Movies { get; set; } = null!;
         public DbSet<Character> Characters { get; set; } = null!;
         public DbSet<Franchise> Franchises { get; set; } = null!;
 
         public MyDBContext(DbContextOptions<MyDBContext> options) : base(options) {}
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(stringHelper.getConnectionString());
+            }
+        }
 
         /// <summary>
         /// OnModelCreating creates the connection and creates seeded dummy data for the database.

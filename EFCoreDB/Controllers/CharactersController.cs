@@ -9,6 +9,7 @@ using EFCoreDB.Models;
 
 namespace EFCoreDB.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class CharactersController : ControllerBase

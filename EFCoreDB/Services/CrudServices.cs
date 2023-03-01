@@ -4,7 +4,7 @@
     {
         Task<ICollection<T>> GetAllSync();
 
-        Task<T> GetByIdAsync(ID id);
+        Task<T> GetMovieById(ID id);
 
         Task AddAsync(T entity);
 

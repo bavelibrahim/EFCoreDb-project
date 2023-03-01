@@ -74,7 +74,7 @@ namespace EFCoreDB.Services
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<Franchise> GetByIdAsync(int id)
+        public async Task<Franchise> GetMovieById(int id)
         {
             if (!await FranchiseExists(id))
             {

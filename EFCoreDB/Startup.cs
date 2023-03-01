@@ -8,8 +8,8 @@ namespace EFCoreDB
 {
     public class Startup
     {
-        private const string ConnectionString = "MyDBContext";
         private readonly IConfiguration _configuration;
+        private readonly StringHelper stringHelper;
 
         public Startup(IConfiguration configuration)
         {
@@ -18,17 +18,15 @@ namespace EFCoreDB
 
         public void ConfigureServices(IServiceCollection services)
         {
-            string myDbContextConnectionString = ConnectionString;
+
+
+            services.AddControllers();
 
             services.AddDbContext<MyDBContext>(options =>
-                options.UseSqlServer(myDbContextConnectionString));
-
-            // Services
-            services.AddScoped<IMovieService, MovieService>();
-            services.AddScoped<IFranchiseService, FranchiseService>();
-            services.AddScoped<ICharacterService, CharacterService>();
-
-            // Other services can be registered here
+                options.UseSqlServer(stringHelper.getConnectionString()));
+            services.AddScoped<MovieService>();
+            services.AddScoped<CharacterService>();
+            services.AddScoped<FranchiseService>();
         }
 
 
