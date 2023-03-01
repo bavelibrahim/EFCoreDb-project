@@ -40,6 +40,6 @@ public class Movie
     // Navigation properties to be able to navigate to Franchise (Example on Modelbuilder in MyDBContext Class
     public int FranchiseId { get; set; }
     public virtual Franchise Franchise { get; set; }
-    public virtual ICollection<Character>? Characters { get; set; } = new List<Character>();
+    public virtual ICollection<Character>? Characters { get; set; }
 
 }

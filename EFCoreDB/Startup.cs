@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Builder;
+using EFCoreDB.Services;
 
 namespace EFCoreDB
 {
@@ -21,6 +22,11 @@ namespace EFCoreDB
 
             services.AddDbContext<MyDBContext>(options =>
                 options.UseSqlServer(myDbContextConnectionString));
+
+            // Services
+            services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<IFranchiseService, FranchiseService>();
+            services.AddScoped<ICharacterService, CharacterService>();
 
             // Other services can be registered here
         }
