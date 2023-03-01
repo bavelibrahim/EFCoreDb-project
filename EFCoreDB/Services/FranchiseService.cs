@@ -1,4 +1,5 @@
 ﻿using EFCoreDB.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreDB.Services
 {
@@ -6,37 +7,114 @@ namespace EFCoreDB.Services
     {
 
         private readonly MyDBContext _dbContext;
-        public FranchiseService(MyDBContext dbContext) 
-        { 
+        private readonly ILogger<FranchiseService> _logger;
+        public FranchiseService(MyDBContext dbContext, ILogger<FranchiseService> logger)
+        {
             _dbContext = dbContext;
+            _logger = logger;
         }
 
-        public Task AddAsync(Franchise entity)
+        /// <summary>
+        /// Adds a new Franchise to the DbContext
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task AddAsync(Franchise entity)
         {
-            throw new NotImplementedException();
+            await _dbContext.AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        /// <summary>
+        /// Deletes Franchise by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var franchise = await _dbContext.Franchises.FindAsync(id);
+
+            if (franchise == null)
+            {
+                _logger.LogError("Movie with id: " + id + " is not found");
+                // Throw a new exception when it is not found
+            }
+
+            // Removes franchise and saves changes
+            _dbContext.Franchises.Remove(franchise);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<ICollection<Franchise>> GetAllSync()
+        /// <summary>
+        /// Obtains all Franchises.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ICollection<Franchise>> GetAllSync()
         {
-            throw new NotImplementedException();
-        }
+            // The reason for using a select in this case is because of the occurence of an infinite loop (Many to many relationship)
 
-        public Task<Franchise> GetByIdAsync(int id)
+            return await _dbContext.Franchises
+        .Select(c => new Franchise
         {
-            throw new NotImplementedException();
+            FranchiseId = c.FranchiseId,
+            Name = c.Name,
+
+            Movies = c.Movies.Select(m => new Movie
+            {
+                MovieId = m.MovieId,
+                Title = m.Title,
+                Characters = m.Characters.ToList() ?? new List<Character>()
+            }).ToList()
+        }).ToListAsync();
         }
 
-        public Task UpdateAsync(Franchise entity)
+        /// <summary>
+        /// Obtains Franchise by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<Franchise> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            if (!await FranchiseExists(id))
+            {
+                _logger.LogError($"Movie not found with Id: {id}");
+                // Throw new exception here
+            }
+
+            // Returns the Franchise and the Franchises' movies. 
+            return await _dbContext.Franchises.Where(p => p.FranchiseId == id)
+                .Include(p => p.Movies)
+                .FirstAsync();
         }
 
+        /// <summary>
+        /// Updates a existing entity inside the DbContext
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task UpdateAsync(Franchise entity)
+        {
+            if (!await FranchiseExists(entity.FranchiseId))
+            {
+                _logger.LogError($"Movie not found with id: {entity.FranchiseId}");
+                // Throw exception here
+            }
 
-        // Implement methods....
+            // Enter the modified entry and save the changes
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
+
+        }
+
+        /// <summary>
+        /// Checks if a certain Franchise exist by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private async Task<bool> FranchiseExists(int id)
+        {
+            return await _dbContext.Franchises.AnyAsync(e => e.FranchiseId == id);
+        }
     }
 }
