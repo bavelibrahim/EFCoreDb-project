@@ -9,10 +9,7 @@ namespace EFCoreDB.Models
         public DbSet<Character> Characters { get; set; } = null!;
         public DbSet<Franchise> Franchises { get; set; } = null!;
 
-        public MyDBContext(DbContextOptions<MyDBContext> options) : base(options)
-        {
-
-        }
+        public MyDBContext(DbContextOptions<MyDBContext> options) : base(options) {}
 
         /// <summary>
         /// OnModelCreating creates the connection and creates seeded dummy data for the database.
