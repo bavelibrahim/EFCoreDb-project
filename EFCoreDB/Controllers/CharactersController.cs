@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EFCoreDB.Models;
+using AutoMapper;
 
 namespace EFCoreDB.Controllers
 {
@@ -14,17 +15,20 @@ namespace EFCoreDB.Controllers
     public class CharactersController : ControllerBase
     {
         private readonly MyDBContext _context;
+        private readonly IMapper _mapper;
 
         public CharactersController(MyDBContext context)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Characters
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Character>>> GetCharacters()
+        public async Task<ActionResult<IEnumerable<CharacterDto>>> GetCharacters()
         {
-            return await _context.Characters.ToListAsync();
+            var characters = await _context.Characters.ToListAsync();
+            return _mapper.Map<List<CharacterDto>>(characters);
         }
 
         // GET: api/Characters/5
@@ -44,12 +48,10 @@ namespace EFCoreDB.Controllers
         // PUT: api/Characters/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCharacter(int id, Character character)
+        public async Task<IActionResult> PutCharacter(int id, CharacterUpdateDto characterDto)
         {
-            if (id != character.CharacterId)
-            {
-                return BadRequest();
-            }
+            var character = _mapper.Map<Character>(characterDto);
+            character.CharacterId = id;
 
             _context.Entry(character).State = EntityState.Modified;
 
@@ -75,12 +77,15 @@ namespace EFCoreDB.Controllers
         // POST: api/Characters
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Character>> PostCharacter(Character character)
+        public async Task<ActionResult<CharacterDto>> PostCharacter(CharacterCreateDto characterDto)
         {
+            var character = _mapper.Map<Character>(characterDto);
+
             _context.Characters.Add(character);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCharacter", new { id = character.CharacterId }, character);
+            var characterDtoToReturn = _mapper.Map<CharacterDto>(character);
+            return CreatedAtAction("GetCharacter", new { id = characterDtoToReturn.CharacterId }, characterDtoToReturn);
         }
 
         // DELETE: api/Characters/5

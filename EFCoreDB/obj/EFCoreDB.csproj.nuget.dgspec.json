@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Noroff\\CSharp\\Assignments\\Assignment03\\EFCoreDb-project\\EFCoreDB\\EFCoreDB.csproj": {}
+    "C:\\Users\\JBraat\\Desktop\\repos\\Dotnet\\Assignment3\\EFCoreDB\\EFCoreDB.csproj": {}
   },
   "projects": {
-    "C:\\Noroff\\CSharp\\Assignments\\Assignment03\\EFCoreDb-project\\EFCoreDB\\EFCoreDB.csproj": {
+    "C:\\Users\\JBraat\\Desktop\\repos\\Dotnet\\Assignment3\\EFCoreDB\\EFCoreDB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Noroff\\CSharp\\Assignments\\Assignment03\\EFCoreDb-project\\EFCoreDB\\EFCoreDB.csproj",
+        "projectUniqueName": "C:\\Users\\JBraat\\Desktop\\repos\\Dotnet\\Assignment3\\EFCoreDB\\EFCoreDB.csproj",
         "projectName": "EFCoreDB",
-        "projectPath": "C:\\Noroff\\CSharp\\Assignments\\Assignment03\\EFCoreDb-project\\EFCoreDB\\EFCoreDB.csproj",
-        "packagesPath": "C:\\Users\\PShwan\\.nuget\\packages\\",
-        "outputPath": "C:\\Noroff\\CSharp\\Assignments\\Assignment03\\EFCoreDb-project\\EFCoreDB\\obj\\",
+        "projectPath": "C:\\Users\\JBraat\\Desktop\\repos\\Dotnet\\Assignment3\\EFCoreDB\\EFCoreDB.csproj",
+        "packagesPath": "C:\\Users\\JBraat\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\JBraat\\Desktop\\repos\\Dotnet\\Assignment3\\EFCoreDB\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\PShwan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\JBraat\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.3, )"
