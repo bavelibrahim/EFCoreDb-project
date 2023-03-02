@@ -80,7 +80,26 @@ namespace EFCoreDB.Services
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<Character> GetByIdAsync(int id)
+        public async Task<ICollection<Movie>> GetMoviesByCharacterId(int id)
+        {
+            var character = await GetCharacterById(id);
+
+            // Returns the movies of the character
+            return character.Movies.Select(m => new Movie
+            {
+                MovieId = m.MovieId,        
+                Title = m.Title,
+                // can add further properties if needed
+            }).ToList();
+        }
+
+        /// <summary>
+        /// Obtains character by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<Character> GetCharacterById(int id)
         {
             if (!await CharacterExists(id))
             {
@@ -112,6 +131,28 @@ namespace EFCoreDB.Services
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
 
+        }
+        public async Task UpdateMovies(int[] movieIds, int characterId)
+        {
+            if (!await CharacterExists(characterId))
+            {
+                _logger.LogError("Character not found with Id: " + characterId);
+               /* throw new CharacterNotFoundException();*/
+            }
+            List<Movie> movies = movieIds
+                .ToList()
+                .Select(sid => _dbContext.Movies
+                .Where(s => s.MovieId == sid).First())
+                .ToList();
+            // Get character for Id
+            Character character = await _dbContext.Characters
+                .Where(p => p.CharacterId == characterId)
+                .FirstAsync();
+            // Set the character movies
+            character.Movies = movies;
+            _dbContext.Entry(character).State = EntityState.Modified;
+            // Save all the changes
+            await _dbContext.SaveChangesAsync();
         }
 
         /// <summary>

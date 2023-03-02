@@ -24,9 +24,9 @@ namespace EFCoreDB
                 options.UseSqlServer(myDbContextConnectionString));
 
             // Services
-            services.AddScoped<IMovieService, MovieService>();
-            services.AddScoped<IFranchiseService, FranchiseService>();
-            services.AddScoped<ICharacterService, CharacterService>();
+            services.AddScoped<MovieService>();
+            services.AddScoped<FranchiseService>();
+            services.AddScoped<CharacterService>();
 
             // Other services can be registered here
         }

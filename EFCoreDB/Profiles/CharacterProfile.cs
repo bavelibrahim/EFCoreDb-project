@@ -1,4 +1,6 @@
-﻿namespace EFCoreDB.Profiles
+﻿using AutoMapper;
+
+namespace EFCoreDB.Profiles
 {
     public class CharacterProfile : Profile
     {
