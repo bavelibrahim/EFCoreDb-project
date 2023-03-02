@@ -28,6 +28,17 @@ namespace EFCoreDB.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+            // This is where the connections are created.
+            modelBuilder.Entity<Movie>()
+                .HasMany(m => m.Characters)
+                .WithMany(c => c.Movies)
+                .UsingEntity(j => j.ToTable("MovieCharacters"));
+
+            modelBuilder.Entity<Franchise>()
+                .HasMany(f => f.Movies)
+                .WithOne(m => m.Franchise)
+                .HasForeignKey(m => m.FranchiseId);
+
             // Seeding the dummy data 
             modelBuilder.Entity<Franchise>().HasData(
             new Franchise { FranchiseId = 1, Name = "Marvel Cinematic Universe", Description = "A series of superhero films produced by Marvel Studios" },
@@ -47,16 +58,7 @@ namespace EFCoreDB.Models
                 new Character { CharacterId = 3, Name = "Harry Potter", Alias = "The Chosen One", Gender = "Male", PictureUrl = "https://www.imdb.com/title/itsWingardiumLeviOsaNotLeviOsa", MovieId = 3 }
             );
 
-            // This is where the connections are created.
-            modelBuilder.Entity<Movie>()
-                .HasMany(m => m.Characters)
-                .WithMany(c => c.Movies)
-                .UsingEntity(j => j.ToTable("MovieCharacters"));
-
-            modelBuilder.Entity<Franchise>()
-                .HasMany(f => f.Movies)
-                .WithOne(m => m.Franchise)
-                .HasForeignKey(m => m.FranchiseId);
+            
         }
     }
 }
