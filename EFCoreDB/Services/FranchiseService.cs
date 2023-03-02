@@ -74,7 +74,11 @@ namespace EFCoreDB.Services
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
+<<<<<<< HEAD
         public async Task<Franchise> GetMovieById(int id)
+=======
+        public async Task<Franchise> GetFranchiseById(int id)
+>>>>>>> origin/main
         {
             if (!await FranchiseExists(id))
             {
@@ -86,6 +90,26 @@ namespace EFCoreDB.Services
             return await _dbContext.Franchises.Where(p => p.FranchiseId == id)
                 .Include(p => p.Movies)
                 .FirstAsync();
+        }
+
+        /// <summary>
+        /// Obtain movies by Franchise Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<ICollection<Movie>> GetMoviesByFranchiseId(int id)
+        {
+            var franchise = await _dbContext.Franchises.Where(m => m.FranchiseId == id)
+                .Include(m => m.Movies)
+                .FirstOrDefaultAsync();
+
+            if (franchise.Movies == null)
+            {
+                //throw null exception for franchise
+            }
+
+            return franchise.Movies;
         }
 
         /// <summary>
@@ -105,6 +129,29 @@ namespace EFCoreDB.Services
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
 
+        }
+
+        public async Task UpdateMovies(int[] movieIds, int franchiseId)
+        {
+            if (!await FranchiseExists(franchiseId))
+            {
+                _logger.LogError("Franchise not found with Id: " + franchiseId);
+                /* throw new FranchiseNotFoundException();*/
+            }
+            List<Movie> movies = movieIds
+                .ToList()
+                .Select(sid => _dbContext.Movies
+                .Where(s => s.MovieId == sid).First())
+                .ToList();
+            // Get franchise for Id
+            Franchise franchise = await _dbContext.Franchises
+                .Where(p => p.FranchiseId == franchiseId)
+                .FirstAsync();
+            // Set the franchise movies
+            franchise.Movies = movies;
+            _dbContext.Entry(franchise).State = EntityState.Modified;
+            // Save all the changes
+            await _dbContext.SaveChangesAsync();
         }
 
         /// <summary>

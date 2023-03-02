@@ -87,7 +87,11 @@ namespace EFCoreDB.Services
             // Returns the movies of the character
             return character.Movies.Select(m => new Movie
             {
+<<<<<<< HEAD
                 MovieId = m.MovieId,
+=======
+                MovieId = m.MovieId,        
+>>>>>>> origin/main
                 Title = m.Title,
                 // can add further properties if needed
             }).ToList();
@@ -131,6 +135,28 @@ namespace EFCoreDB.Services
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
 
+        }
+        public async Task UpdateMovies(int[] movieIds, int characterId)
+        {
+            if (!await CharacterExists(characterId))
+            {
+                _logger.LogError("Character not found with Id: " + characterId);
+               /* throw new CharacterNotFoundException();*/
+            }
+            List<Movie> movies = movieIds
+                .ToList()
+                .Select(sid => _dbContext.Movies
+                .Where(s => s.MovieId == sid).First())
+                .ToList();
+            // Get character for Id
+            Character character = await _dbContext.Characters
+                .Where(p => p.CharacterId == characterId)
+                .FirstAsync();
+            // Set the character movies
+            character.Movies = movies;
+            _dbContext.Entry(character).State = EntityState.Modified;
+            // Save all the changes
+            await _dbContext.SaveChangesAsync();
         }
 
         /// <summary>

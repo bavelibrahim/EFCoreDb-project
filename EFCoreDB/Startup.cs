@@ -23,10 +23,21 @@ namespace EFCoreDB
             services.AddControllers();
 
             services.AddDbContext<MyDBContext>(options =>
+<<<<<<< HEAD
                 options.UseSqlServer(stringHelper.getConnectionString()));
             services.AddScoped<MovieService>();
             services.AddScoped<CharacterService>();
             services.AddScoped<FranchiseService>();
+=======
+                options.UseSqlServer(myDbContextConnectionString));
+
+            // Services
+            services.AddScoped<MovieService>();
+            services.AddScoped<FranchiseService>();
+            services.AddScoped<CharacterService>();
+
+            // Other services can be registered here
+>>>>>>> origin/main
         }
 
 

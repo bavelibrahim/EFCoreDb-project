@@ -10575,19 +10575,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\PShwan\\.nuget\\packages\\": {}
+    "C:\\Users\\JBraat\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Noroff\\CSharp\\Assignments\\Assignment03\\EFCoreDb-project\\EFCoreDB\\EFCoreDB.csproj",
+      "projectUniqueName": "C:\\Users\\JBraat\\Desktop\\repos\\Dotnet\\Assignment3\\EFCoreDB\\EFCoreDB.csproj",
       "projectName": "EFCoreDB",
-      "projectPath": "C:\\Noroff\\CSharp\\Assignments\\Assignment03\\EFCoreDb-project\\EFCoreDB\\EFCoreDB.csproj",
-      "packagesPath": "C:\\Users\\PShwan\\.nuget\\packages\\",
-      "outputPath": "C:\\Noroff\\CSharp\\Assignments\\Assignment03\\EFCoreDb-project\\EFCoreDB\\obj\\",
+      "projectPath": "C:\\Users\\JBraat\\Desktop\\repos\\Dotnet\\Assignment3\\EFCoreDB\\EFCoreDB.csproj",
+      "packagesPath": "C:\\Users\\JBraat\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\JBraat\\Desktop\\repos\\Dotnet\\Assignment3\\EFCoreDB\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\PShwan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\JBraat\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -10668,5 +10668,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\JBraat\\Desktop\\repos\\Dotnet\\Assignment3\\EFCoreDB\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

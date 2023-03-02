@@ -70,6 +70,47 @@ namespace EFCoreDB.Services
         }).ToListAsync();
         }
 
+
+        /// <summary>
+        /// Obtains character by Movie Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<ICollection<Character>> GetCharactersByMovieId(int id)
+        {
+            var movie = await GetMovieById(id);
+
+            // Returns the movies of the character
+            return movie.Characters.Select(m => new Character
+            {
+                CharacterId = m.CharacterId,
+                Name = m.Name,
+                // can add further properties if needed
+            }).ToList();
+        }
+
+
+        /// <summary>
+        /// Obtain Franchise by Movie Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<Franchise?> GetFranchiseByMovieId(int id)
+        {
+            var movie = await _dbContext.Movies.Where(m => m.MovieId == id)
+                .Include(m => m.Franchise)
+                .FirstOrDefaultAsync();
+
+            if (movie.Franchise == null)
+            {
+                //throw null exception for franchise
+            }
+
+            return movie.Franchise;
+        }
+
         /// <summary>
         /// Obtains character by Movie Id
         /// </summary>
@@ -146,6 +187,29 @@ namespace EFCoreDB.Services
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
 
+        }
+
+        public async Task UpdateCharacters(int[] characterIds, int movieId)
+        {
+            if (!await MovieExists(movieId))
+            {
+                _logger.LogError("Movie not found with Id: " + movieId);
+                /* throw new MovieNotFoundException();*/
+            }
+            List<Character> characters = characterIds
+                .ToList()
+                .Select(sid => _dbContext.Characters
+                .Where(s => s.CharacterId == sid).First())
+                .ToList();
+            // Get movie for Id
+            Movie movie = await _dbContext.Movies
+                .Where(p => p.MovieId == movieId)
+                .FirstAsync();
+            // Set the movie characters
+            movie.Characters = characters;
+            _dbContext.Entry(movie).State = EntityState.Modified;
+            // Save all the changes
+            await _dbContext.SaveChangesAsync();
         }
 
         /// <summary>
