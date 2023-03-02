@@ -4,8 +4,6 @@
     {
         Task<ICollection<T>> GetAllSync();
 
-        Task<T> GetByIdAsync(ID id);
-
         Task AddAsync(T entity);
 
         Task UpdateAsync(T entity); 
