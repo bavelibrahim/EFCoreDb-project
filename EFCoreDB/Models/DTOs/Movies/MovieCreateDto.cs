@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿
+
+/// <summary>
+/// DTO for the process of adding a new Movie.
+/// </summary>
 
 public class MovieCreateDto
 {
-    public string Title { get; set; }
-    public string Genre { get; set; }
-    public string ReleaseYear { get; set; }
-    public string Director { get; set; }
-    public string PictureUrl { get; set; }
-    public string TrailerUrl { get; set; }
+    public string Title { get; set; } = null!;
+    public string Genre { get; set; } = null!;
+    public string ReleaseYear { get; set; } = null!;
+    public string Director { get; set; } = null!;
+    public string PictureUrl { get; set; } = null!;
+    public string TrailerUrl { get; set; } = null!;
     public int FranchiseId { get; set; }
-    public virtual Franchise Franchise { get; set; }
-
 }

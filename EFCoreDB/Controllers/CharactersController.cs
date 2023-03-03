@@ -57,7 +57,7 @@ namespace EFCoreDB.Controllers
                         await _characterService.GetCharacterById(id))
                     );
             }
-            catch (EntityNotFoundExeption ex)
+            catch (EntityNotFoundException ex)
             {
 
                 return NotFound(
@@ -91,7 +91,7 @@ namespace EFCoreDB.Controllers
                     );
                 return NoContent();
             }
-            catch (EntityNotFoundExeption ex)
+            catch (EntityNotFoundException ex)
             {
 
                 return NotFound(
@@ -134,7 +134,7 @@ namespace EFCoreDB.Controllers
                 await _characterService.DeleteAsync(id);
                 return NoContent();
             }
-            catch (EntityNotFoundExeption ex)
+            catch (EntityNotFoundException ex)
             {
                 return NotFound(
                     new ProblemDetails()
@@ -163,7 +163,7 @@ namespace EFCoreDB.Controllers
                         )
                     );
             }
-            catch (EntityNotFoundExeption ex)
+            catch (EntityNotFoundException ex)
             {
                 return NotFound(
                     new ProblemDetails()
@@ -191,7 +191,7 @@ namespace EFCoreDB.Controllers
                 await _characterService.UpdateMovies(movieIds, id);
                 return NoContent();
             }
-            catch (EntityNotFoundExeption ex)
+            catch (EntityNotFoundException ex)
             {
                 return NotFound(
                     new ProblemDetails()

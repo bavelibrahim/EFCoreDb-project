@@ -57,7 +57,7 @@ namespace EFCoreDB.Controllers
                         await _franchiseService.GetFranchiseById(id))
                     );
             }
-            catch (EntityNotFoundExeption ex)
+            catch (EntityNotFoundException ex)
             {
 
                 return NotFound(
@@ -91,7 +91,7 @@ namespace EFCoreDB.Controllers
                     );
                 return NoContent();
             }
-            catch (EntityNotFoundExeption ex)
+            catch (EntityNotFoundException ex)
             {
 
                 return NotFound(
@@ -133,7 +133,7 @@ namespace EFCoreDB.Controllers
                 await _franchiseService.DeleteAsync(id);
                 return NoContent();
             }
-            catch (EntityNotFoundExeption ex)
+            catch (EntityNotFoundException ex)
             {
                 return NotFound(
                     new ProblemDetails()
@@ -160,7 +160,7 @@ namespace EFCoreDB.Controllers
                         )
                     );
             }
-            catch (EntityNotFoundExeption ex)
+            catch (EntityNotFoundException ex)
             {
                 return NotFound(
                     new ProblemDetails()
@@ -188,7 +188,7 @@ namespace EFCoreDB.Controllers
                 await _franchiseService.UpdateMovies(movieIds, id);
                 return NoContent();
             }
-            catch (EntityNotFoundExeption ex)
+            catch (EntityNotFoundException ex)
             {
                 return NotFound(
                     new ProblemDetails()
