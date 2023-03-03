@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Builder;
 using EFCoreDB.Services;
+using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.OpenApi.Models;
+
 
 namespace EFCoreDB
 {
@@ -19,17 +22,18 @@ namespace EFCoreDB
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            });
 
             services.AddControllers();
 
             services.AddDbContext<MyDBContext>(options =>
-<<<<<<< HEAD
                 options.UseSqlServer(stringHelper.getConnectionString()));
             services.AddScoped<MovieService>();
             services.AddScoped<CharacterService>();
             services.AddScoped<FranchiseService>();
-=======
-                options.UseSqlServer(myDbContextConnectionString));
 
             // Services
             services.AddScoped<MovieService>();
@@ -37,13 +41,20 @@ namespace EFCoreDB
             services.AddScoped<CharacterService>();
 
             // Other services can be registered here
->>>>>>> origin/main
+
         }
 
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // Configure the app here
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
         }
     }
 }

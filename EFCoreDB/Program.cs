@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using EFCoreDB.Models;
 using EFCoreDB.Services;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 
 namespace EFCoreDB
 {
@@ -17,6 +18,21 @@ namespace EFCoreDB
 
             // Add services to the container.
             builder.Services.AddControllers();
+
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "MFC Api",
+                    Description = "Managing Movies, Franchises and Characters",
+                });
+            }
+            );
+
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             builder.Services.AddDbContext<MyDBContext>(
             opt => opt.UseSqlServer(stringHelper.getConnectionString()));
             builder.Services.AddScoped<MovieService>();
@@ -32,6 +48,12 @@ namespace EFCoreDB
             }
 
             var app = builder.Build();
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
 
             // Configure the HTTP request pipeline.
 

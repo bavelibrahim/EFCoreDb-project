@@ -1,10 +1,10 @@
 ﻿using System;
 namespace EFCoreDB.Util.Exeptions
 {
-    public class EntityNotFoundExeption : Exception
+    public class EntityNotFoundException : Exception
     {
 
-        public EntityNotFoundExeption() { }
+        public EntityNotFoundException() { }
         public EntityNotFoundException(string? message) : base(message)
         {
 

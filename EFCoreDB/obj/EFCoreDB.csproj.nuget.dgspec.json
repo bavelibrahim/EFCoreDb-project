@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\JBraat\\Desktop\\repos\\Dotnet\\Assignment3\\EFCoreDB\\EFCoreDB.csproj": {}
+    "C:\\Noroff\\CSharp\\Assignments\\Assignment03\\EFCoreDb-project\\EFCoreDB\\EFCoreDB.csproj": {}
   },
   "projects": {
-    "C:\\Users\\JBraat\\Desktop\\repos\\Dotnet\\Assignment3\\EFCoreDB\\EFCoreDB.csproj": {
+    "C:\\Noroff\\CSharp\\Assignments\\Assignment03\\EFCoreDb-project\\EFCoreDB\\EFCoreDB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\JBraat\\Desktop\\repos\\Dotnet\\Assignment3\\EFCoreDB\\EFCoreDB.csproj",
+        "projectUniqueName": "C:\\Noroff\\CSharp\\Assignments\\Assignment03\\EFCoreDb-project\\EFCoreDB\\EFCoreDB.csproj",
         "projectName": "EFCoreDB",
-        "projectPath": "C:\\Users\\JBraat\\Desktop\\repos\\Dotnet\\Assignment3\\EFCoreDB\\EFCoreDB.csproj",
-        "packagesPath": "C:\\Users\\JBraat\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\JBraat\\Desktop\\repos\\Dotnet\\Assignment3\\EFCoreDB\\obj\\",
+        "projectPath": "C:\\Noroff\\CSharp\\Assignments\\Assignment03\\EFCoreDb-project\\EFCoreDB\\EFCoreDB.csproj",
+        "packagesPath": "C:\\Users\\PShwan\\.nuget\\packages\\",
+        "outputPath": "C:\\Noroff\\CSharp\\Assignments\\Assignment03\\EFCoreDb-project\\EFCoreDB\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\JBraat\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PShwan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[12.0.0, )"
@@ -64,6 +68,10 @@
               "target": "Package",
               "version": "[7.0.3, )"
             },
+            "Microsoft.OpenApi": {
+              "target": "Package",
+              "version": "[1.6.2, )"
+            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[6.0.12, )"
@@ -71,6 +79,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.2, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
             }
           },
           "imports": [

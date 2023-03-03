@@ -74,11 +74,8 @@ namespace EFCoreDB.Services
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-<<<<<<< HEAD
-        public async Task<Franchise> GetMovieById(int id)
-=======
+
         public async Task<Franchise> GetFranchiseById(int id)
->>>>>>> origin/main
         {
             if (!await FranchiseExists(id))
             {
@@ -90,6 +87,11 @@ namespace EFCoreDB.Services
             return await _dbContext.Franchises.Where(p => p.FranchiseId == id)
                 .Include(p => p.Movies)
                 .FirstAsync();
+        }
+
+        public Task<Franchise> GetMovieById(int id)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

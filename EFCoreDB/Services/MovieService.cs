@@ -70,27 +70,6 @@ namespace EFCoreDB.Services
         }).ToListAsync();
         }
 
-
-        /// <summary>
-        /// Obtains character by Movie Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public async Task<ICollection<Character>> GetCharactersByMovieId(int id)
-        {
-            var movie = await GetMovieById(id);
-
-            // Returns the movies of the character
-            return movie.Characters.Select(m => new Character
-            {
-                CharacterId = m.CharacterId,
-                Name = m.Name,
-                // can add further properties if needed
-            }).ToList();
-        }
-
-
         /// <summary>
         /// Obtain Franchise by Movie Id
         /// </summary>
@@ -128,26 +107,6 @@ namespace EFCoreDB.Services
                 Name = m.Name,
                 // can add further properties if needed
             }).ToList();
-        }
-
-        /// <summary>
-        /// Obtain Franchise by Movie Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public async Task<Franchise?> GetFranchiseByMovieId(int id)
-        {
-            var movie = await _dbContext.Movies.Where(m => m.MovieId == id)
-                .Include(m => m.Franchise)
-                .FirstOrDefaultAsync();
-
-            if (movie.Franchise == null)
-            {
-                //throw null exception for franchise
-            }
-
-            return movie.Franchise;
         }
 
         /// <summary>
