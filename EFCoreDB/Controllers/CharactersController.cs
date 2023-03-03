@@ -34,7 +34,7 @@ namespace EFCoreDB.Controllers
         /// </summary>
         /// <returns>List of CharacterDto</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CharacterDto>>> GetCharacters()
+        public async Task<ActionResult<ICollection<CharacterDto>>> GetCharacters()
         {
             return Ok(
                 _mapper.Map<List<CharacterDto>>(
@@ -112,7 +112,7 @@ namespace EFCoreDB.Controllers
         /// </summary>
         /// <param name="characterDto"></param>
         [HttpPost]
-        public async Task<IActionResult> PostCharacterAsync(CharacterDto characterDto)
+        public async Task<IActionResult> PostCharacterAsync(CharacterCreateDto characterDto)
         {
             // Mapping done separately to use the object in created at action
             Character character = _mapper.Map<Character>(characterDto);

@@ -11,7 +11,7 @@ namespace EFCoreDB.Models.DTOs.Franchises
         public int FranchiseId { get; set; }
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
-        public List<int> Movies { get; set; } = null!;
+        public List<int>? Movies { get; set; } = null!;
 
     }
 }

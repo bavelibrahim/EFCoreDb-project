@@ -23,6 +23,6 @@ public class Franchise
     public string Description { get; set; } = null!;
 
     // Collections for movies
-    public virtual ICollection<Movie> Movies { get; set; }
+    public virtual ICollection<Movie>? Movies { get; set; }
 
 }

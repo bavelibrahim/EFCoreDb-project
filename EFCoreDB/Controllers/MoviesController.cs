@@ -112,7 +112,7 @@ namespace EFCoreDB.Controllers
         /// </summary>
         /// <param name="movieDto"></param>
         [HttpPost]
-        public async Task<IActionResult> PostMovieAsync(MovieDto movieDto)
+        public async Task<IActionResult> PostMovieAsync(Movie movieDto)
         {
             // Mapping done separately to use the object in created at action
             Movie movie = _mapper.Map<Movie>(movieDto);
@@ -186,7 +186,7 @@ namespace EFCoreDB.Controllers
             try
             {
                 return Ok(
-                        _mapper.Map<List<FranchiseSummaryDto>>(
+                        _mapper.Map<FranchiseSummaryDto>(
                             await _movieService.GetFranchiseByMovieId(id)
                         )
                     );

@@ -9,5 +9,5 @@ public class CharacterDto
     public string Alias { get; set; } = null!;
     public string Gender { get; set; } = null!;
     public string PictureUrl { get; set; } = null!;
-    public List<int> Movies { get; set; } = null!;
+    public List<int>? Movies { get; set; } = null!;
 }

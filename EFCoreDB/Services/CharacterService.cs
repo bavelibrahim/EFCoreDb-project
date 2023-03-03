@@ -137,11 +137,8 @@ namespace EFCoreDB.Services
             if (!await CharacterExists(characterId))
             {
                 _logger.LogError("Character not found with Id: " + characterId);
-<<<<<<< HEAD
-                /* throw new CharacterNotFoundException();*/
-=======
+
                 throw new CharacterNotFoundException();
->>>>>>> origin/main
             }
             List<Movie> movies = movieIds
                 .ToList()

@@ -110,7 +110,7 @@ namespace EFCoreDB.Controllers
         /// </summary>
         /// <param name="franchiseDto"></param>
         [HttpPost]
-        public async Task<IActionResult> PostFranchiseAsync(FranchiseDto franchiseDto)
+        public async Task<IActionResult> PostFranchiseAsync(FranchiseCreateDto franchiseDto)
         {
             // Mapping done separately to use the object in created at action
             Franchise franchise = _mapper.Map<Franchise>(franchiseDto);

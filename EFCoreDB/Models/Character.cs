@@ -25,7 +25,7 @@ public class Character
 
     // The Gender of a character as three choices.
     [Required]
-    [RegularExpression("^(Male|Female|Other)$")]
+    [StringLength(50)]
     public string Gender { get; set; } = null!;
 
     // The URL of a character as three choices.

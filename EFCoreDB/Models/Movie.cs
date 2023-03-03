@@ -6,7 +6,6 @@ public class Movie
     public Movie()
     {
         Characters = new HashSet<Character>();
-
     }
 
     // The ID of the movie entity as Primary Key.

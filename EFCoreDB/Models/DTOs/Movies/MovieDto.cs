@@ -11,7 +11,6 @@ public class MovieDto
     public string PictureUrl { get; set; } = null!;
     public string TrailerUrl { get; set; } = null!;
     public int FranchiseId { get; set; }
-    public virtual Franchise Franchise { get; set; } = null!;
     public virtual List<int> Characters { get; set; } = null!;
 
 }
