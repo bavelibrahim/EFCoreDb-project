@@ -1,4 +1,5 @@
 ﻿using EFCoreDB.Models;
+using EFCoreDB.Util.Exeptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreDB.Services
@@ -43,7 +44,7 @@ namespace EFCoreDB.Services
             if (character == null)
             {
                 _logger.LogError("Character with id: " + id + " is not found");
-                // Throw a new exception when it is not found
+                throw new CharacterNotFoundException();
             }
 
             // Removes and saves changes
@@ -124,7 +125,7 @@ namespace EFCoreDB.Services
             if(!await CharacterExists(entity.CharacterId))
             {
                 _logger.LogError($"Character not found with id: {entity.CharacterId}");
-                // Throw exception here
+                throw new CharacterNotFoundException();
             }
 
             // Enter the modified entry and save the changes
@@ -137,7 +138,7 @@ namespace EFCoreDB.Services
             if (!await CharacterExists(characterId))
             {
                 _logger.LogError("Character not found with Id: " + characterId);
-               /* throw new CharacterNotFoundException();*/
+                throw new CharacterNotFoundException();
             }
             List<Movie> movies = movieIds
                 .ToList()
