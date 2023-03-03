@@ -181,7 +181,7 @@ namespace EFCoreDB.Controllers
         /// <param name="id"></param>
         /// <returns>List of Franchise in summary format</returns>
         [HttpGet("{id}/franchise")]
-        public async Task<ActionResult<IEnumerable<FranchiseSummaryDto>>> GetFranchiseForMovieAsync(int id)
+        public async Task<ActionResult<FranchiseSummaryDto>> GetFranchiseForMovieAsync(int id)
         {
             try
             {

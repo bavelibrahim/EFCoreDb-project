@@ -105,7 +105,7 @@ namespace EFCoreDB.Services
             if (!await CharacterExists(id))
             {
                 _logger.LogError($"Movie in CharacterId: {id}, does not exist");
-                // Throw new exception here
+                throw new CharacterNotFoundException();
             }
 
             // Returns the character and the characters' movies. 

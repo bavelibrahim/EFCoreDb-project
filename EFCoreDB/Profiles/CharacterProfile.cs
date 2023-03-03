@@ -8,6 +8,7 @@ namespace EFCoreDB.Profiles
     {
         public CharacterProfile()
         {
+
             CreateMap<Character, CharacterDto>()
                 .ForMember(dest => dest.Movies, opt => opt.MapFrom(src => src.MovieId));
             CreateMap<CharacterCreateDto, Character>();
@@ -15,3 +16,4 @@ namespace EFCoreDB.Profiles
         }
     }
 }
+

@@ -5,7 +5,7 @@ public class Franchise
 {
     public Franchise()
     {
-        Movies = new HashSet<Movie>();
+        Movies = new List<Movie>();
     }
 
     // The ID of the franchise as Primary Key.
