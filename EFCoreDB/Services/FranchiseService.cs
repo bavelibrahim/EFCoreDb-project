@@ -1,4 +1,5 @@
 ﻿using EFCoreDB.Models;
+using EFCoreDB.Util.Exeptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreDB.Services
@@ -36,8 +37,8 @@ namespace EFCoreDB.Services
 
             if (franchise == null)
             {
-                _logger.LogError("Movie with id: " + id + " is not found");
-                // Throw a new exception when it is not found
+                _logger.LogError("Franchise with id: " + id + " is not found");
+                throw new FranchiseNotFoundException();
             }
 
             // Removes franchise and saves changes
@@ -51,8 +52,6 @@ namespace EFCoreDB.Services
         /// <returns></returns>
         public async Task<ICollection<Franchise>> GetAllSync()
         {
-            // The reason for using a select in this case is because of the occurence of an infinite loop (Many to many relationship)
-
             return await _dbContext.Franchises
         .Select(c => new Franchise
         {
@@ -79,8 +78,8 @@ namespace EFCoreDB.Services
         {
             if (!await FranchiseExists(id))
             {
-                _logger.LogError($"Movie not found with Id: {id}");
-                // Throw new exception here
+                _logger.LogError($"Franchise not found with Id: {id}");
+                throw new FranchiseNotFoundException();
             }
 
             // Returns the Franchise and the Franchises' movies. 
@@ -108,7 +107,7 @@ namespace EFCoreDB.Services
 
             if (franchise.Movies == null)
             {
-                //throw null exception for franchise
+                throw new FranchiseNotFoundException();
             }
 
             return franchise.Movies;
@@ -124,7 +123,7 @@ namespace EFCoreDB.Services
             if (!await FranchiseExists(entity.FranchiseId))
             {
                 _logger.LogError($"Movie not found with id: {entity.FranchiseId}");
-                // Throw exception here
+                throw new FranchiseNotFoundException();
             }
 
             // Enter the modified entry and save the changes
@@ -138,7 +137,7 @@ namespace EFCoreDB.Services
             if (!await FranchiseExists(franchiseId))
             {
                 _logger.LogError("Franchise not found with Id: " + franchiseId);
-                /* throw new FranchiseNotFoundException();*/
+                throw new FranchiseNotFoundException();
             }
             List<Movie> movies = movieIds
                 .ToList()
